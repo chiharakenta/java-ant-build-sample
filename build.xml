@@ -1,0 +1,34 @@
+<project name="myapp" default="run" basedir=".">
+    <property name="src.dir" value="src" />
+    <property name="dest.dir" value="target" />
+    
+    <!-- 初期化 targetフォルダのリセット -->
+    <target name="clean">
+        <delete dir="${dest.dir}" />
+        <mkdir dir="${dest.dir}" />
+        <mkdir dir="${dest.dir}" />
+    </target>
+    
+    <!-- コンパイル src配下のjavaファイルをtargetフォルダにコンパイル -->
+    <target name="compile" depends="clean">
+        <javac srcdir="${src.dir}" destdir="${dest.dir}/classes" includeantruntime="false" />
+    </target>
+
+    <!-- 実行 -->
+    <target name="run" depends="compile">
+        <java classname="Main">
+            <classpath>
+                <pathelement path="${dest.dir}" />
+            </classpath>
+        </java>
+    </target>
+
+    <!-- jarファイル化 -->
+     <target name="jar" depends="compile">
+        <jar destfile="${dest.dir}/myapp.jar" basedir="${dest.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="Main"/>
+            </manifest>
+        </jar>
+    </target>
+</project>
