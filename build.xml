@@ -6,7 +6,7 @@
     <target name="clean">
         <delete dir="${dest.dir}" />
         <mkdir dir="${dest.dir}" />
-        <mkdir dir="${dest.dir}" />
+        <mkdir dir="${dest.dir}/classes" />
     </target>
     
     <!-- コンパイル src配下のjavaファイルをtargetフォルダにコンパイル -->
@@ -18,14 +18,14 @@
     <target name="run" depends="compile">
         <java classname="Main">
             <classpath>
-                <pathelement path="${dest.dir}" />
+                <pathelement path="${dest.dir}/classes" />
             </classpath>
         </java>
     </target>
 
     <!-- jarファイル化 -->
      <target name="jar" depends="compile">
-        <jar destfile="${dest.dir}/myapp.jar" basedir="${dest.dir}">
+        <jar destfile="${dest.dir}/myapp.jar" basedir="${dest.dir}/classes">
             <manifest>
                 <attribute name="Main-Class" value="Main"/>
             </manifest>
